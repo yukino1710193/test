@@ -1,11 +1,45 @@
-apiVersion: v1 # Descriptor conforms to version v1 of Kubernetes API
-kind: Pod # Select Pod resource
+apiVersion: v1
+kind: Pod
 metadata:
-  name: hello-kube # The name of the pod
+  name: hello-kube-testing
+  labels:
+    enviroment: testing # label with key is enviroment and value is testing
+    project: kubernetes-series
 spec:
   containers:
-    - image: hello-kubeima # Image to create the container
-      name: hello-kube # The name of the container
+    - image: yukino1710193/hello-kubeima:latest
+      name: hello-kube
       ports:
-        - containerPort: 3001 # The port the app is listening on
+        - containerPort: 3001
+          protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-kube-staging
+  labels:
+    enviroment: staging # label with key is enviroment and value is staging
+    project: kubernetes-series
+spec:
+  containers:
+    - image: yukino1710193/hello-kubeima:latest
+      name: hello-kube
+      ports:
+        - containerPort: 3001
+          protocol: TCP
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-kube-production
+  labels:
+    enviroment: production # label with key is enviroment and value is production
+    project: kubernetes-series
+spec:
+  containers:
+    - image: yukino1710193/hello-kubeima:latest
+      name: hello-kube
+      ports:
+        - containerPort: 3001
           protocol: TCP
