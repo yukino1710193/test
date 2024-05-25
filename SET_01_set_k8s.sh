@@ -1,6 +1,5 @@
 #!/bin/bash
-    echo Đây là Yukino , tôi sẽ thực hiện set env cho master-node để chuẩn bị tạo Cluster
-
+    echo Đây là Yukino , tôi sẽ thực hiện set env K8s để chuẩn bị tạo Cluster
 
 # Install Docker - phần này được cài rồi nên sẽ để ghi chú , nếu chưa có thì có thể CTRL + K + U 
     # sudo apt update
@@ -15,4 +14,4 @@
 # Install kubeadm , kubelet , kubectl
     sudo apt install kubeadm kubelet kubectl
     sudo apt-mark hold kubeadm kubelet kubectl # hold version 
-#
+    kubeadm version
