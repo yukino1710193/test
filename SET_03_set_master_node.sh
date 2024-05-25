@@ -1,28 +1,24 @@
 #!/bin/bash
     echo Đây là Yukino , tôi sẽ thực hiện devploy K8s
 
-# Tắt swap
-    sudo swapoff -a
-    sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
-# Chỉnh lại file containerd.conf ( ghi đè )
-    sudo bash -c 'cat << EOF > /etc/modules-load.d/containerd.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-net.ipv4.ip_forward = 1
+# Chỉnh lại file kubectl ( ghi đè )
+    sudo bash -c 'cat << EOF > /etc/default/kubelet
+KUBELET_EXTRA_ARGS="--cgroup-driver=cgroupfs"
 EOF'
-    sudo modprobe overlay
-    sudo modprobe br_netfilter
-
-# Chỉnh K8s networking config
-    sudo bash -c 'cat << EOF > /etc/sysctl.d/kubernetes.conf
-overlay
-br_netfilter
+    sudo systemctl daemon-reload && sudo systemctl restart kubelet
+# Daemon
+    sudo bash -c 'cat << EOF > /etc/docker/daemon.json
+{
+      "exec-opts": ["native.cgroupdriver=systemd"],
+      "log-driver": "json-file",
+      "log-opts": {
+      "max-size": "100m"
+   },
+       "storage-driver": "overlay2"
+       }
 EOF'
-    sudo sysctl --system
-# Set host-name
-    
-    read -p "Nhập hostname :" hostnameinp
-    sudo hostnamectl set-hostname $hostnameinp
-
-# Có thể vào /etc/host để config key-value ip - hostname nữa nma ở đây mình ko ghi :D
-
+    sudo systemctl daemon-reload && sudo systemctl restart docker
+# Chỉnh 10-kubeadm.conf
+# sudo nano /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+# thêm dòng Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false" có rồi thì thôi 
+    sudo systemctl daemon-reload && sudo systemctl restart kubelet
