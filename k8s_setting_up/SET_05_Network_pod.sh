@@ -17,5 +17,6 @@
 # sudo systemctl restart kubelet
 #
 # kubectl taint nodes <node-name> node.kubernetes.io/not-ready-
+# sudo systemctl restart containerd / docker
 # kubectl apply -f ~/Documents/test/kube-flannel.yml
 # kubectl delete pod -n kube-system coredns ...
