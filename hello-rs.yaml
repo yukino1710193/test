@@ -3,7 +3,7 @@ kind: ReplicaSet # change resource name
 metadata:
   name: hello-rs
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels: # change here
       app: hello-kube
