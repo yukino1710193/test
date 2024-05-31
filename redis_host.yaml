@@ -6,3 +6,6 @@ spec:
   containers:
     - image: yukino1710193/hello-service:latest
       name: application
+      ports:
+        - containerPort: 6379
+          protocol: TCP
