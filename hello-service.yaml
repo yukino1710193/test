@@ -13,7 +13,7 @@ spec:
         app: redis
     spec:
       containers:
-      - image: yukino1710193/hello-service:latest # redis image
+      - image: redis # redis image
         name: redis
         ports:
           - containerPort: 6379

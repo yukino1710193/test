@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: application
+spec:
+  containers:
+    - image: yukino1710193/hello-service:latest
+      name: application
