@@ -13,10 +13,10 @@ spec:
         app: redis
     spec:
       containers:
-      - image: redis # redis image
-        name: redis
-        ports:
-          - containerPort: 6379
+        - image: redis # redis image
+          name: redis
+          ports:
+            - containerPort: 6379
 
 ---
 apiVersion: v1
@@ -28,4 +28,4 @@ spec:
     app: redis # label selectors Pod redis
   ports:
     - port: 6379 # port of the serivce
-      targetPort: 6379 # port of the container that service will forward to 
+      targetPort: 6379 # port of the container that service will forward to
