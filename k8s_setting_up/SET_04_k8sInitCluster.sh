@@ -4,6 +4,7 @@
 # reset lại kubeadm để tạo mới 1 Cluster
     echo y | sudo kubeadm reset
 
+    sudo ipvsadm --clear
     sudo rm -rf /etc/cni/net.d
     sudo rm -rf $HOME/.kube/config
 

@@ -3,6 +3,7 @@
 # Reset Cluster
     echo y | sudo kubeadm reset
 
+    sudo ipvsadm --clear
     sudo rm -rf /etc/cni/net.d
     sudo rm -rf $HOME/.kube/config
 # yêu cầu nhập lệnh join cluster
