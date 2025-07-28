@@ -1,0 +1,32 @@
+version: "3"
+services:
+  guacd:
+    image: guacamole/guacd:1.5.5
+    container_name: guacd
+    restart: always
+
+  guacamole:
+    image: guacamole/guacamole:1.5.5
+    container_name: guacamole
+    restart: always
+    depends_on:
+      - guacd
+      - mysql
+    environment:
+      - GUACAMOLE_HOME=/config
+    volumes:
+      - ./config:/config:Z
+    ports:
+      - "8080:8080"  # Truy cập qua http://IP:8080
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD=rootpass
+      MYSQL_DATABASE=guacamole_db
+      MYSQL_USER=guacamole_user
+      MYSQL_PASSWORD=guacamole_pass
+    volumes:
+      - ./db:/var/lib/mysql:Z
